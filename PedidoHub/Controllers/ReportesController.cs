@@ -24,7 +24,7 @@ public class ReportesController : Controller
         {
             ModelState.AddModelError(nameof(modelo.Hasta), "La fecha final no puede ser anterior a la inicial.");
         }
-        else
+        else if (ModelState.IsValid)
         {
             modelo.Filas = await _reportes.ObtenerVentasAsync(modelo.Desde, modelo.Hasta, modelo.IdEmpleado);
         }

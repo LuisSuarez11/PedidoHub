@@ -45,7 +45,7 @@ public class ReporteService
             .ToListAsync();
     }
 
-    // Reporte 2: platos más vendidos (solo pedidos ya facturados) en un período.
+    // Reporte 2: platos más vendidos por fecha de emisión de la factura, igual que Ventas.
     public async Task<List<PlatoVendidoFila>> ObtenerPlatosMasVendidosAsync(DateTime? desde, DateTime? hasta, int top)
     {
         var consulta = _context.PedidoPlatos.AsNoTracking()
@@ -53,12 +53,12 @@ public class ReporteService
 
         if (desde.HasValue)
         {
-            consulta = consulta.Where(d => d.Pedido.FechaHora >= desde.Value.Date);
+            consulta = consulta.Where(d => d.Pedido.Factura!.FechaEmision >= desde.Value.Date);
         }
         if (hasta.HasValue)
         {
             var limite = hasta.Value.Date.AddDays(1);
-            consulta = consulta.Where(d => d.Pedido.FechaHora < limite);
+            consulta = consulta.Where(d => d.Pedido.Factura!.FechaEmision < limite);
         }
 
         var filas = await consulta
