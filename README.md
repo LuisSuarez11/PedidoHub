@@ -7,9 +7,9 @@ Aplicación web en **ASP.NET Core MVC (.NET 8)** con **Entity Framework Core** y
 | Nombre | Usuario de GitHub |
 |---|---|
 | Luis Andrés Suárez Andrade | [LuisSuarez11](https://github.com/LuisSuarez11) |
-| Aldo Gabriel Flores Maquera | _(pendiente)_ |
+| Aldo Gabriel Flores Maquera | [aldogflores](https://github.com/aldogflores) |
 | Fabrizio Dominguez Mogrovejo | [FabrizioDominguez](https://github.com/FabrizioDominguez) |
-| Mauricio Rivero Mendez | _(pendiente)_ |
+| Mauricio Rivero Mendez | [MRM123-byte](https://github.com/MRM123-byte) |
 
 ## Requisitos
 
