@@ -49,7 +49,7 @@ La migración `CrearModeloPedidoHub` crea las tablas y carga datos de ejemplo (c
 ## Reportes
 
 1. **Ventas por período** (`Reportes > Ventas por período`): lista las facturas emitidas con filtros por rango de fechas y empleado. Muestra cantidad de facturas, total facturado y ticket promedio. Sirve para conocer cuánto vendió el restaurante y el desempeño de cada empleado.
-2. **Platos más vendidos** (`Reportes > Platos más vendidos`): unidades vendidas y monto generado por plato (solo pedidos facturados), con filtro de fechas y cantidad de platos a mostrar. Sirve para decidir qué platos promocionar o retirar del menú.
+2. **Platos más vendidos** (`Reportes > Platos más vendidos`): unidades vendidas y monto generado por plato (solo pedidos facturados, según la fecha de emisión de la factura), con filtro de fechas y cantidad de platos a mostrar. Sirve para decidir qué platos promocionar o retirar del menú.
 
 ## Estructura del proyecto
 
