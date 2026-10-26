@@ -16,6 +16,7 @@ Aplicación web en **ASP.NET Core MVC (.NET 8)** con **Entity Framework Core** y
 - .NET SDK 8.0 o superior
 - SQL Server LocalDB (incluido con Visual Studio) o cualquier instancia de SQL Server
 - Herramienta de EF Core: `dotnet tool install --global dotnet-ef`
+- Git instalado para clonar el repositorio
 
 ## Cómo ejecutar
 
