@@ -1,15 +1,22 @@
 @model ReportePlatosViewModel
 @{
+    var hoy = DateTime.Today.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+    var inicioMes = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
     ViewData["Title"] = "Platos más vendidos";
 }
 
-<h1>Platos más vendidos</h1>
-<p class="text-muted">Unidades vendidas e ingresos por plato, considerando solo pedidos ya facturados. Ayuda a decidir qué platos promocionar o retirar del menú.</p>
+<div class="title-row">
+    <div>
+        <h1>Platos más vendidos</h1>
+        <p class="title-sub">Unidades e ingresos por plato, según la fecha de emisión de la factura.</p>
+    </div>
+</div>
 
-<form method="get" class="row g-2 align-items-end mb-3">
+<form method="get" class="row g-3 align-items-end mb-4">
     <div class="col-auto">
         <label asp-for="Desde" class="form-label"></label>
         <input asp-for="Desde" type="date" class="form-control" />
+        <span asp-validation-for="Desde" class="text-danger"></span>
     </div>
     <div class="col-auto">
         <label asp-for="Hasta" class="form-label"></label>
@@ -25,10 +32,27 @@
         <button type="submit" class="btn btn-primary">Generar reporte</button>
         <a class="btn btn-link" asp-action="PlatosMasVendidos">Limpiar</a>
     </div>
+    <div class="col-12 d-flex flex-wrap align-items-center gap-2">
+        <span class="text-muted">Período rápido:</span>
+        <a class="btn btn-outline-secondary btn-sm" asp-action="PlatosMasVendidos" asp-route-Desde="@hoy" asp-route-Hasta="@hoy" asp-route-Top="@Model.Top">Hoy</a>
+        <a class="btn btn-outline-secondary btn-sm" asp-action="PlatosMasVendidos" asp-route-Desde="@inicioMes" asp-route-Hasta="@hoy" asp-route-Top="@Model.Top">Este mes</a>
+    </div>
 </form>
 
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger" role="alert">Revisa los filtros marcados y vuelve a generar el reporte.</div>
+}
+else
+{
+<ul class="summary">
+    <li><strong class="hue">@Model.TotalMonto.ToString("N2")</strong>monto de los platos mostrados</li>
+    <li><strong>@Model.TotalUnidades</strong>unidades de los platos mostrados</li>
+    <li><strong>@Model.Filas.Count</strong>@(Model.Filas.Count == 1 ? "plato mostrado" : "platos mostrados")</li>
+</ul>
+
 <div class="table-responsive">
-<table class="table table-striped align-middle">
+<table class="table align-middle">
     <thead>
         <tr>
             <th>#</th>
@@ -55,7 +79,7 @@
     {
         <tfoot>
             <tr>
-                <th colspan="3" class="text-end">Totales</th>
+                <th colspan="3" class="text-end">Totales de los platos mostrados</th>
                 <th class="text-end">@Model.TotalUnidades</th>
                 <th class="text-end">@Model.TotalMonto.ToString("N2")</th>
             </tr>
@@ -67,4 +91,5 @@
 @if (!Model.Filas.Any())
 {
     <p class="text-muted">No hay ventas para los filtros indicados.</p>
+}
 }

@@ -1,5 +1,7 @@
 @model ReporteVentasViewModel
 @{
+    var hoy = DateTime.Today.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+    var inicioMes = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
     ViewData["Title"] = "Ventas por período";
 }
 
@@ -14,6 +16,7 @@
     <div class="col-auto">
         <label asp-for="Desde" class="form-label"></label>
         <input asp-for="Desde" type="date" class="form-control" />
+        <span asp-validation-for="Desde" class="text-danger"></span>
     </div>
     <div class="col-auto">
         <label asp-for="Hasta" class="form-label"></label>
@@ -25,13 +28,25 @@
         <select asp-for="IdEmpleado" asp-items="Model.Empleados" class="form-select">
             <option value="">Todos</option>
         </select>
+        <span asp-validation-for="IdEmpleado" class="text-danger"></span>
     </div>
     <div class="col-auto">
         <button type="submit" class="btn btn-primary">Generar reporte</button>
         <a class="btn btn-link" asp-action="Ventas">Limpiar</a>
     </div>
+    <div class="col-12 d-flex flex-wrap align-items-center gap-2">
+        <span class="text-muted">Período rápido:</span>
+        <a class="btn btn-outline-secondary btn-sm" asp-action="Ventas" asp-route-Desde="@hoy" asp-route-Hasta="@hoy" asp-route-IdEmpleado="@Model.IdEmpleado">Hoy</a>
+        <a class="btn btn-outline-secondary btn-sm" asp-action="Ventas" asp-route-Desde="@inicioMes" asp-route-Hasta="@hoy" asp-route-IdEmpleado="@Model.IdEmpleado">Este mes</a>
+    </div>
 </form>
 
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger" role="alert">Revisa los filtros marcados y vuelve a generar el reporte.</div>
+}
+else
+{
 <ul class="summary">
     <li><strong class="hue">@Model.TotalFacturado.ToString("N2")</strong>total facturado</li>
     <li><strong>@Model.CantidadFacturas</strong>@(Model.CantidadFacturas == 1 ? "factura emitida" : "facturas emitidas")</li>
@@ -80,4 +95,5 @@
 @if (!Model.Filas.Any())
 {
     <p class="text-muted">No hay facturas para los filtros indicados.</p>
+}
 }
