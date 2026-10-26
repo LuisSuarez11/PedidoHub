@@ -1686,6 +1686,12 @@ body.paleta-abierta {
     color: var(--accent-ink);
 }
 
+.note--error {
+    border-color: #f1c5c1;
+    background: var(--pill-negative-bg);
+    color: var(--pill-negative-ink);
+}
+
 .mono a {
     text-decoration: none;
 }
